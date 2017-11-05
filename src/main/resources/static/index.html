@@ -1,0 +1,56 @@
+<html>
+        <head>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        </head>
+        <body>
+                <h2>Login</h2>
+                        <input id="username" name="username" type="text" />
+                        <input id="password" name="password" type="text" />
+                        <button onClick="onClick()">Log In</button>
+                        <button onClick="hello()">Saluta</button>
+                <script type="text/javascript">
+                                function onClick() {
+                                        var username = $("#username").val();
+                                        var password = $("#password").val();
+                                        $.ajax({
+                                                type: "POST",
+                                                url: "http://localhost:8080/login",
+                                                beforeSend: function (xhr) {
+                                                        //xhr.setRequestHeader("X-Ajax-call", "true");
+                                                },
+                                                xhrFields: {
+//                                                      withCredentials: true
+                                                },
+                                                data: { username: username, password: password },
+                                                success: function() {
+                                                        console.log("ok");
+                                                },
+                                                failure: function() {
+                                                        console.log("not ok");
+                                                }
+                                        });
+                                }
+
+                                function hello() {
+                                        $.ajax({
+                                                type: "get",
+                                                url: "http://localhost:8080/hello",
+                                                beforeSend: function (xhr) {
+                                                        xhr.setRequestHeader("X-Ajax-call", "true");
+                                                },
+                                                xhrFields: {
+                                                        withCredentials: true
+                                                },
+                                                success: function(r) {
+                                                        console.log("success!!!", r);
+                                                },
+                                                failure: function() {
+                                                        console.log("failure");
+                                                }
+                                        });
+
+                                }
+
+                </script>
+        </body>
+</html>
